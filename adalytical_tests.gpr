@@ -1,0 +1,18 @@
+--  Crate de tests: arnés propio mínimo (sin dependencias externas).
+with "adalytical.gpr";
+
+project Adalytical_Tests is
+
+   for Source_Dirs use ("tests/**");
+   for Object_Dir use "obj/tests";
+   for Exec_Dir use "bin";
+   for Main use ("test_runner.adb");
+
+   --  Reutiliza el perfil de compilación de la librería (incluye -gnata).
+   package Compiler renames Adalytical.Compiler;
+
+   package Builder is
+      for Switches ("Ada") use ("-j0");
+   end Builder;
+
+end Adalytical_Tests;

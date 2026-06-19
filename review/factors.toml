@@ -1,0 +1,53 @@
+# Factores de revisión de Adalytical — control del usuario.
+#
+# Cada factor se evalúa de forma INDEPENDIENTE, con su propio script y veredicto.
+# Tú decides, por factor:
+#   enabled   = ¿se ejecuta?            (true/false)
+#   blocking  = ¿bloquea la entrega?    (true/false)  -> solo los bloqueantes
+#                                                         determinan el GATE.
+# `scripts/review.sh` ejecuta los factores activos, imprime una tabla y calcula
+# GATE únicamente sobre los bloqueantes. CI corre cada factor como un job aparte.
+#
+# Nota: en cada sección, `cmd` debe ser la última clave (lo asume el parser).
+
+[factor.build]
+enabled = true
+blocking = true
+description = "Compila la librería con warnings-as-errors (-gnatwe)"
+cmd = "scripts/checks/build.sh"
+
+[factor.tests]
+enabled = true
+blocking = true
+description = "Compila y ejecuta la batería de tests"
+cmd = "scripts/checks/tests.sh"
+
+[factor.contracts]
+enabled = true
+blocking = true
+description = "Contratos en runtime (-gnata -gnatVa) + ejecución"
+cmd = "scripts/checks/contracts.sh"
+
+[factor.style]
+enabled = true
+blocking = false
+description = "Estilo: tabs, espacios finales, longitud de línea"
+cmd = "scripts/checks/style.sh"
+
+[factor.proof]
+enabled = false
+blocking = false
+description = "Demostración SPARK con gnatprove (opt-in)"
+cmd = "scripts/checks/proof.sh"
+
+[factor.coverage]
+enabled = false
+blocking = false
+description = "Cobertura con gnatcov (opt-in)"
+cmd = "scripts/checks/coverage.sh"
+
+[factor.docs]
+enabled = false
+blocking = false
+description = "Documentación de API con gnatdoc (opt-in)"
+cmd = "scripts/checks/docs.sh"

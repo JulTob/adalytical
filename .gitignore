@@ -1,0 +1,19 @@
+# Build artifacts
+/obj/
+/lib/
+/bin/
+
+# Alire workspace state (toolchain cache, generated config)
+/alire/
+/config/
+
+# GNAT artifacts
+*.o
+*.ali
+*.adt
+*.gcno
+*.gcda
+
+# Editor / OS
+.DS_Store
+*~

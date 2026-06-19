@@ -1,0 +1,44 @@
+name: review
+
+# Cada factor de revisión corre como un job INDEPENDIENTE: aparece como un check
+# verde/rojo separado en el PR, reflejando el modelo de review/factors.toml.
+# Local y CI ejecutan exactamente los mismos scripts (scripts/checks/*.sh).
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: alire-project/setup-alire@v2
+        with:
+          toolchain: gnat_native^15 gprbuild
+      - run: bash scripts/checks/build.sh
+
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: alire-project/setup-alire@v2
+        with:
+          toolchain: gnat_native^15 gprbuild
+      - run: bash scripts/checks/tests.sh
+
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: alire-project/setup-alire@v2
+        with:
+          toolchain: gnat_native^15 gprbuild
+      - run: bash scripts/checks/contracts.sh
+
+  style:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash scripts/checks/style.sh

@@ -1,0 +1,42 @@
+--  Proyecto-librería principal de Adalytical.
+--
+--  Perfil de switches:
+--    * `-gnat2022`  : Ada 2022 (contratos, aspectos, expresiones avanzadas).
+--    * `-gnatwa`    : todos los warnings activados (NO fatales aquí; el factor de
+--                     revisión `build` los promueve a error con `-gnatwe`, de modo
+--                     que el desarrollo cotidiano avisa y la puerta de revisión exige).
+--    * `-gnata`     : aserciones/contratos activos en modo debug (factor `contracts`).
+--
+--  La verificación SPARK es OPT-IN del usuario final (ver `review/factors.toml`),
+--  no se impone aquí.
+
+library project Adalytical is
+
+   for Library_Name use "adalytical";
+   for Library_Version use "0.1.0";
+   for Source_Dirs use ("src/**");
+   for Object_Dir use "obj/lib";
+   for Library_Dir use "lib";
+   for Library_Kind use "static";
+
+   type Build_Mode_Kind is ("debug", "release");
+   Build_Mode : Build_Mode_Kind := external ("ADALYTICAL_BUILD_MODE", "debug");
+
+   Common_Switches := ("-gnat2022", "-gnatwa");
+
+   package Compiler is
+      case Build_Mode is
+         when "debug" =>
+            for Default_Switches ("Ada") use
+              Common_Switches & ("-g", "-O0", "-gnata", "-gnatVa");
+         when "release" =>
+            for Default_Switches ("Ada") use
+              Common_Switches & ("-O2", "-gnatn");
+      end case;
+   end Compiler;
+
+   package Builder is
+      for Switches ("Ada") use ("-j0");
+   end Builder;
+
+end Adalytical;

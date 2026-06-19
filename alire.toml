@@ -1,0 +1,15 @@
+name = "adalytical"
+version = "0.1.0-dev"
+description = "Análisis matemático y estadístico en Ada (núcleo Variable/Signal)"
+
+authors = ["Julio Toboso"]
+maintainers = ["Julio Toboso <juliotoboso@gmail.com>"]
+maintainers-logins = ["juliotoboso"]
+licenses = "MIT"
+tags = ["math", "statistics", "numerics", "signals", "linear-algebra"]
+
+# La librería y los crates auxiliares (tests, ejemplos) se construyen con `alr build`.
+project-files = ["adalytical.gpr", "adalytical_tests.gpr", "adalytical_examples.gpr"]
+
+# El crate núcleo no tiene dependencias externas: build determinista.
+# (El factor `proof` usa gnatprove, que el usuario instala aparte vía `alr install gnatprove`.)
