@@ -14,6 +14,9 @@
 *.gcno
 *.gcda
 
+# Salidas generadas por los ejemplos
+*.svg
+
 # Editor / OS
 .DS_Store
 *~

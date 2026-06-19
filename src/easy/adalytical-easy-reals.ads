@@ -15,6 +15,9 @@ with Adalytical.Statistics.Descriptive;
 with Adalytical.Signals;
 with Adalytical.Systems;
 with Adalytical.Linear_Algebra;
+with Adalytical.SVG;
+with Adalytical.Plots;
+with Adalytical.Plots.Series_Line;
 
 package Adalytical.Easy.Reals is
 
@@ -102,6 +105,26 @@ package Adalytical.Easy.Reals is
    subtype Vector is LinAlg.Vector;
    subtype Matrix is LinAlg.Matrix;
    function Solve (A : Matrix; B : Vector) return Vector renames LinAlg.Solve;
+
+   ---------------------------------------------------------------------------
+   --  Visualización (SVG): el diagrama base de una serie es un line plot.
+   ---------------------------------------------------------------------------
+   subtype Figure     is Adalytical.SVG.Document;
+   subtype Plot_Style is Adalytical.Plots.Style;
+
+   function R_To_Float (X : Real) return Float is (Float (X));
+   package Plot_Line is new Adalytical.Plots.Series_Line
+     (Vars => Var, To_Float => R_To_Float);
+
+   function Plot
+     (S          : Series;
+      Title      : String := "";
+      With_Style : Plot_Style := Adalytical.Plots.Default_Style) return Figure
+     renames Plot_Line.Plot;
+
+   procedure Save (Fig : Figure; File : String) renames Adalytical.SVG.Save;
+   function To_SVG_String (Fig : Figure) return String
+     renames Adalytical.SVG.To_String;
 
 private
 
