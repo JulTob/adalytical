@@ -6,6 +6,8 @@ with Test_Systems;
 with Test_Statistics;
 with Test_Linear_Algebra;
 with Test_Visualization;
+with Test_Histogram;
+with Test_Graph;
 
 procedure Test_Runner is
 begin
@@ -15,6 +17,8 @@ begin
    Test_Statistics;
    Test_Linear_Algebra;
    Test_Visualization;
+   Test_Histogram;
+   Test_Graph;
 
    Adalytical_Testing.Report;
 

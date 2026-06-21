@@ -43,6 +43,8 @@ Regla: no editar archivos de un `scope` sin ticket en `Processing` con reserva
 | T-201 | Núcleo SVG sin dependencias (`Adalytical.SVG`) | `src/svg/` |
 | T-202 | Capa de plots híbrida: `Plottable` + `Series_Line` (line plot type-driven) | `src/plots/` |
 | T-203 | Integración en fachada (`Plot`/`Save`/`Figure`) + tests + ejemplo | `Easy.Reals`, 28/28 PASS, `examples/visualizacion.adb` |
+| T-204 | Histograma type-driven (vector indexado por enum) | `src/plots/...-histogram`, 35/35 PASS |
+| T-205 | Grafo type-driven (matriz de adyacencia) | `src/plots/...-graph`, `Plot_Graph` en fachada |
 
 ---
 
@@ -62,8 +64,6 @@ Regla: no editar archivos de un `scope` sin ticket en `Processing` con reserva
 | T-110 | Migrar arnés de tests a AUnit (opcional) | |
 | T-111 | Más álgebras: cuerpos finitos, intervalos/fuzzy, complejos | `Adalytical.Algebra.*` |
 | T-112 | Covarianza/correlación, cuantiles, momentos | ampliar `Statistics.Descriptive` |
-| T-204 | Histograma type-driven para vector indexado por enum | implementa `Plottable` |
-| T-205 | Grafo (nodos/aristas) desde matriz de adyacencia | implementa `Plottable` |
 | T-206 | Scatter, stem plot, ejes con ticks y leyenda | `Adalytical.Plots.*` |
 | T-207 | Animación SVG (`<animate>`/`<animateTransform>`) | sobre `Adalytical.SVG` |
 | T-208 | Cablear todos los diagramas vía dispatch `Plottable` | coherencia híbrida |

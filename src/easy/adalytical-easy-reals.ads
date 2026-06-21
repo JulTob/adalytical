@@ -18,6 +18,7 @@ with Adalytical.Linear_Algebra;
 with Adalytical.SVG;
 with Adalytical.Plots;
 with Adalytical.Plots.Series_Line;
+with Adalytical.Plots.Graph;
 
 package Adalytical.Easy.Reals is
 
@@ -125,6 +126,16 @@ package Adalytical.Easy.Reals is
    procedure Save (Fig : Figure; File : String) renames Adalytical.SVG.Save;
    function To_SVG_String (Fig : Figure) return String
      renames Adalytical.SVG.To_String;
+
+   --  Diagrama base de una matriz: grafo (adyacencia -> nodos/aristas).
+   package Graph_Plot is new Adalytical.Plots.Graph
+     (Real => Real, Matrix_Type => LinAlg.Matrix);
+   function Plot_Graph
+     (Adjacency  : Matrix;
+      Title      : String := "";
+      Threshold  : Real := 0.0;
+      With_Style : Plot_Style := Adalytical.Plots.Default_Style) return Figure
+     renames Graph_Plot.Plot;
 
 private
 

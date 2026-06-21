@@ -13,6 +13,10 @@ versionado [SemVer](https://semver.org/lang/es/).
   line plot, genérico sobre el motor + una función `To_Float`.
 - Fachada `Easy.Reals`: `Plot`, `Save`, `To_SVG_String`, subtipos `Figure`/`Plot_Style`.
 - Suite de tests SVG (28/28) y ejemplo `examples/visualizacion.adb`.
+- **Diagramas type-driven**: `Adalytical.Plots.Histogram` (vector indexado por
+  enum -> barras) y `Adalytical.Plots.Graph` (matriz de adyacencia -> grafo de
+  nodos/aristas); `Plot_Graph` en la fachada. Tests 35/35; ejemplo
+  `examples/viz_diagramas.adb`.
 
 ## [0.1.0] — sin publicar
 
