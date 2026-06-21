@@ -9,6 +9,7 @@ with Test_Visualization;
 with Test_Histogram;
 with Test_Graph;
 with Test_Animation;
+with Test_Dispatch;
 
 procedure Test_Runner is
 begin
@@ -21,6 +22,7 @@ begin
    Test_Histogram;
    Test_Graph;
    Test_Animation;
+   Test_Dispatch;
 
    Adalytical_Testing.Report;
 
