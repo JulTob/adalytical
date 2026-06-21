@@ -123,6 +123,18 @@ package Adalytical.Easy.Reals is
       With_Style : Plot_Style := Adalytical.Plots.Default_Style) return Figure
      renames Plot_Line.Plot;
 
+   function Stem
+     (S          : Series;
+      Title      : String := "";
+      With_Style : Plot_Style := Adalytical.Plots.Default_Style) return Figure
+     renames Plot_Line.Stem;
+
+   function Scatter
+     (S          : Series;
+      Title      : String := "";
+      With_Style : Plot_Style := Adalytical.Plots.Default_Style) return Figure
+     renames Plot_Line.Scatter;
+
    procedure Save (Fig : Figure; File : String) renames Adalytical.SVG.Save;
    function To_SVG_String (Fig : Figure) return String
      renames Adalytical.SVG.To_String;
