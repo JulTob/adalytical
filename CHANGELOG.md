@@ -19,6 +19,9 @@ versionado [SemVer](https://semver.org/lang/es/).
   `examples/viz_diagramas.adb`.
 - **Animación SVG nativa** (SMIL): `Animated_Circle` en el núcleo; ejemplo
   `examples/viz_animacion.adb` (interpolación por el navegador, sin JS).
+- **Scatter y stem plots + ejes con ticks**: `Series_Line` ahora ofrece
+  `Series_Kind` (línea/stem/scatter) y dibuja ticks y etiquetas en ambos ejes;
+  `Stem` y `Scatter` en la fachada.
 
 ## [0.1.0] — sin publicar
 

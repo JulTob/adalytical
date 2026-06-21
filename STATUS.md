@@ -46,6 +46,7 @@ Regla: no editar archivos de un `scope` sin ticket en `Processing` con reserva
 | T-204 | Histograma type-driven (vector indexado por enum) | `src/plots/...-histogram`, 35/35 PASS |
 | T-205 | Grafo type-driven (matriz de adyacencia) | `src/plots/...-graph`, `Plot_Graph` en fachada |
 | T-207 | Animación SVG nativa (SMIL `<animate>`) | `Animated_Circle`, `examples/viz_animacion.adb` |
+| T-206 | Scatter, stem y ejes con ticks | `Series_Line` (Series_Kind), `Stem`/`Scatter` en fachada |
 
 ---
 
@@ -65,8 +66,8 @@ Regla: no editar archivos de un `scope` sin ticket en `Processing` con reserva
 | T-110 | Migrar arnés de tests a AUnit (opcional) | |
 | T-111 | Más álgebras: cuerpos finitos, intervalos/fuzzy, complejos | `Adalytical.Algebra.*` |
 | T-112 | Covarianza/correlación, cuantiles, momentos | ampliar `Statistics.Descriptive` |
-| T-206 | Scatter, stem plot, ejes con ticks y leyenda | `Adalytical.Plots.*` |
 | T-208 | Cablear todos los diagramas vía dispatch `Plottable` | coherencia híbrida |
+| T-209 | Leyenda multi-serie y superposición de series | `Adalytical.Plots.*` |
 
 ---
 

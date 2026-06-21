@@ -14,14 +14,17 @@ package body Adalytical.Plots.Series_Line is
    end Num;
 
    function Chart
-     (S : Vars.Discrete_Variable; Title : String := "") return Line_Chart
+     (S     : Vars.Discrete_Variable;
+      Title : String := "";
+      Kind  : Series_Kind := Kind_Line) return Series_Chart
    is
-      Result : Line_Chart;
+      Result : Series_Chart;
       N  : constant Positive := Vars.Length (S);
       T0 : constant Float := To_Float (Vars.Origin (S));
       Dt : constant Float := To_Float (Vars.Spacing (S));
    begin
       Result.Title := To_Unbounded_String (Title);
+      Result.Kind  := Kind;
       for I in 0 .. N - 1 loop
          Result.Xs.Append (T0 + Float (I) * Dt);
          Result.Ys.Append (To_Float (Vars.Sample (S, I)));
@@ -30,18 +33,18 @@ package body Adalytical.Plots.Series_Line is
    end Chart;
 
    overriding function To_SVG
-     (C          : Line_Chart;
+     (C          : Series_Chart;
       With_Style : Adalytical.Plots.Style := Adalytical.Plots.Default_Style)
       return Adalytical.SVG.Document
    is
       use Adalytical.SVG;
+      Color : constant String := "#1f77b4";
       N   : constant Natural := Natural (C.Xs.Length);
       W   : constant Float := Float (With_Style.Width);
       H   : constant Float := Float (With_Style.Height);
       M   : constant Float := Float (With_Style.Margin);
       Doc : Document := Create (With_Style.Width, With_Style.Height);
    begin
-      --  Ejes.
       Line (Doc, M, H - M, W - M, H - M);   --  eje X
       Line (Doc, M, M, M, H - M);            --  eje Y
 
@@ -67,19 +70,69 @@ package body Adalytical.Plots.Series_Line is
          if Ymax <= Ymin then Ymax := Ymin + 1.0; end if;
 
          declare
-            Px : Float_Array (1 .. N);
-            Py : Float_Array (1 .. N);
-         begin
-            for I in 1 .. N loop
-               Px (I) := M + (C.Xs (I) - Xmin) / (Xmax - Xmin) * (W - 2.0 * M);
-               Py (I) :=
-                 H - M - (C.Ys (I) - Ymin) / (Ymax - Ymin) * (H - 2.0 * M);
-            end loop;
-            Polyline (Doc, Px, Py, Stroke => "#1f77b4", Width => 2.0);
-         end;
+            function Map_X (X : Float) return Float is
+              (M + (X - Xmin) / (Xmax - Xmin) * (W - 2.0 * M));
+            function Map_Y (Y : Float) return Float is
+              (H - M - (Y - Ymin) / (Ymax - Ymin) * (H - 2.0 * M));
 
-         Text (Doc, 6.0, H - M, Num (Ymin), Size => 11.0, Fill => "#555555");
-         Text (Doc, 6.0, M, Num (Ymax), Size => 11.0, Fill => "#555555");
+            Base_Y : constant Float :=
+              Map_Y (Float'Max (Ymin, Float'Min (Ymax, 0.0)));
+         begin
+            case C.Kind is
+               when Kind_Line =>
+                  declare
+                     Px : Float_Array (1 .. N);
+                     Py : Float_Array (1 .. N);
+                  begin
+                     for I in 1 .. N loop
+                        Px (I) := Map_X (C.Xs.Element (I));
+                        Py (I) := Map_Y (C.Ys.Element (I));
+                     end loop;
+                     Polyline (Doc, Px, Py, Stroke => Color, Width => 2.0);
+                  end;
+
+               when Kind_Stem =>
+                  for I in 1 .. N loop
+                     declare
+                        X : constant Float := Map_X (C.Xs.Element (I));
+                        Y : constant Float := Map_Y (C.Ys.Element (I));
+                     begin
+                        Line (Doc, X, Base_Y, X, Y, Stroke => Color, Width => 1.5);
+                        Circle (Doc, X, Y, 3.0, Fill => Color);
+                     end;
+                  end loop;
+
+               when Kind_Scatter =>
+                  for I in 1 .. N loop
+                     Circle (Doc, Map_X (C.Xs.Element (I)), Map_Y (C.Ys.Element (I)), 3.5,
+                             Fill => Color);
+                  end loop;
+            end case;
+
+            --  Ticks del eje Y (mín / medio / máx).
+            declare
+               Yt : constant Float_Array (1 .. 3) :=
+                 [Ymin, (Ymin + Ymax) / 2.0, Ymax];
+            begin
+               for V of Yt loop
+                  Line (Doc, M - 4.0, Map_Y (V), M, Map_Y (V), Stroke => "#999999");
+                  Text (Doc, 4.0, Map_Y (V) + 3.0, Num (V),
+                        Size => 9.0, Fill => "#777777");
+               end loop;
+            end;
+
+            --  Ticks del eje X (primero / último).
+            declare
+               Xt : constant Float_Array (1 .. 2) := [Xmin, Xmax];
+            begin
+               for V of Xt loop
+                  Line (Doc, Map_X (V), H - M, Map_X (V), H - M + 4.0,
+                        Stroke => "#999999");
+                  Text (Doc, Map_X (V) - 8.0, H - M + 15.0, Num (V),
+                        Size => 9.0, Fill => "#777777");
+               end loop;
+            end;
+         end;
       end;
 
       if Length (C.Title) > 0 then
