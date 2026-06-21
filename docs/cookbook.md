@@ -92,3 +92,31 @@ end Mi_Modelo;
 > Para dominios sin inversos (p. ej. magnitudes solo no-negativas) usa
 > predicados/subtipos del tipo base; un cuerpo requiere inversos. Modelar fuzzy
 > e intervalos como álgebras propias está en la hoja de ruta (ver `STATUS.md`).
+
+## 6. Histograma de un vector indexado por enum
+
+El tipo lo dice todo: un array sobre un enum es una distribución por categorías.
+
+```ada
+with Adalytical.Plots.Histogram;
+with Adalytical.Easy.Reals; use Adalytical.Easy.Reals;
+...
+type Quarter is (Q1, Q2, Q3, Q4);
+type Sales   is array (Quarter) of Real;
+function To_F (X : Real) return Float is (Float (X));
+package Hist is new Adalytical.Plots.Histogram (Quarter, Real, Sales, To_F);
+...
+Save (Hist.Plot ([Q1 => 120.0, Q2 => 150.0, Q3 => 90.0, Q4 => 200.0], "ventas"),
+      "ventas.svg");
+```
+
+## 7. Grafo de una matriz de adyacencia
+
+Una matriz cuadrada es, naturalmente, una matriz de adyacencia -> nodos y aristas.
+
+```ada
+A : constant Matrix := [[0.0, 1.0, 1.0],
+                        [1.0, 0.0, 1.0],
+                        [1.0, 1.0, 0.0]];
+Save (Plot_Graph (A, Title => "triángulo"), "grafo.svg");
+```

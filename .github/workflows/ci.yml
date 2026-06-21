@@ -6,8 +6,13 @@ name: review
 
 on:
   push:
-    branches: ["**"]
+    branches: [main]
   pull_request:
+
+# Cancela ejecuciones superadas de la misma rama (evita runs duplicados push+PR).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:

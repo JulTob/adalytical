@@ -8,7 +8,7 @@ project Adalytical_Examples is
    for Exec_Dir use "bin";
    for Main use
      ("analisis_basico.adb", "modelo_produccion.adb", "tipo_propio.adb",
-      "visualizacion.adb");
+      "visualizacion.adb", "viz_diagramas.adb");
 
    package Compiler renames Adalytical.Compiler;
 
