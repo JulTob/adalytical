@@ -3,6 +3,17 @@
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es/1.1.0/);
 versionado [SemVer](https://semver.org/lang/es/).
 
+## [0.2.0] — sin publicar
+
+### Añadido
+- **Visualización SVG** (`Adalytical.SVG`): constructor de documentos vectoriales
+  sin dependencias (primitivas, `viewBox`, serialización a fichero).
+- **Capa de plots tipados** (`Adalytical.Plots`): interfaz `Plottable` (backbone
+  híbrido) y `Adalytical.Plots.Series_Line` — el diagrama base de una serie es un
+  line plot, genérico sobre el motor + una función `To_Float`.
+- Fachada `Easy.Reals`: `Plot`, `Save`, `To_SVG_String`, subtipos `Figure`/`Plot_Style`.
+- Suite de tests SVG (28/28) y ejemplo `examples/visualizacion.adb`.
+
 ## [0.1.0] — sin publicar
 
 Primera rebanada vertical: cimientos + arquitectura de tres capas demostrada

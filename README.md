@@ -74,6 +74,22 @@ bash scripts/checks/tests.sh   # compila y ejecuta los tests
 bash scripts/review.sh         # ejecuta todos los factores de revisión
 ```
 
+## Visualización (SVG)
+
+El mismo principio "el tipo determina su forma" se aplica a los gráficos: cada
+estructura tiene un **diagrama base**. SVG como backend (texto ligero, vectorial,
+animable, auditable). En v0.2 está el line plot de una serie:
+
+```ada
+D   : constant Series := Sample_On_Grid (Sine (Frequency => 1.0), 0.0, 0.01, 200);
+Fig : constant Figure := Plot (D, Title => "onda");
+begin
+   Save (Fig, "onda.svg");
+```
+
+Hoja de ruta de diagramas (histograma para vector-enum, grafo para matriz,
+scatter, animación) en [`STATUS.md`](STATUS.md) (T-204+).
+
 ## Revisión por factores independientes
 
 La calidad se evalúa por **factores independientes** que **tú controlas**: en
