@@ -8,6 +8,7 @@ with Test_Linear_Algebra;
 with Test_Visualization;
 with Test_Histogram;
 with Test_Graph;
+with Test_Animation;
 
 procedure Test_Runner is
 begin
@@ -19,6 +20,7 @@ begin
    Test_Visualization;
    Test_Histogram;
    Test_Graph;
+   Test_Animation;
 
    Adalytical_Testing.Report;
 
