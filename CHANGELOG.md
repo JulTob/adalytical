@@ -17,6 +17,8 @@ versionado [SemVer](https://semver.org/lang/es/).
   enum -> barras) y `Adalytical.Plots.Graph` (matriz de adyacencia -> grafo de
   nodos/aristas); `Plot_Graph` en la fachada. Tests 35/35; ejemplo
   `examples/viz_diagramas.adb`.
+- **Animación SVG nativa** (SMIL): `Animated_Circle` en el núcleo; ejemplo
+  `examples/viz_animacion.adb` (interpolación por el navegador, sin JS).
 
 ## [0.1.0] — sin publicar
 

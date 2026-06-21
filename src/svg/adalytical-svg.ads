@@ -38,6 +38,15 @@ package Adalytical.SVG is
       Stroke : String := "black"; Width : Float := 1.5)
      with Pre => Xs'Length = Ys'Length;
 
+   --  Círculo con una animación SMIL sobre un atributo (cx, cy, r, ...).
+   --  SVG anima de forma nativa, sin JS ni bucles de render: el navegador
+   --  interpola. Ej.: Attribute => "cx", From => 0.0, To => 100.0.
+   procedure Animated_Circle
+     (Doc : in out Document; CX, CY, R : Float;
+      Attribute : String; From, To : Float;
+      Fill : String := "black"; Duration : Float := 2.0;
+      Repeat : String := "indefinite");
+
    --  Serialización.
    function To_String (Doc : Document) return String;
    procedure Save (Doc : Document; Filename : String);

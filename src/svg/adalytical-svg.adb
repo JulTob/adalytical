@@ -109,6 +109,22 @@ package body Adalytical.SVG is
            & Attr ("stroke-width", Img (Width)) & "/>" & LF);
    end Polyline;
 
+   procedure Animated_Circle
+     (Doc : in out Document; CX, CY, R : Float;
+      Attribute : String; From, To : Float;
+      Fill : String := "black"; Duration : Float := 2.0;
+      Repeat : String := "indefinite") is
+   begin
+      Add (Doc,
+           "  <circle" & Attr ("cx", Img (CX)) & Attr ("cy", Img (CY))
+           & Attr ("r", Img (R)) & Attr ("fill", Fill) & ">" & LF
+           & "    <animate" & Attr ("attributeName", Attribute)
+           & Attr ("from", Img (From)) & Attr ("to", Img (To))
+           & Attr ("dur", Img (Duration) & "s")
+           & Attr ("repeatCount", Repeat) & "/>" & LF
+           & "  </circle>" & LF);
+   end Animated_Circle;
+
    ---------------------------------------------------------------------------
    function To_String (Doc : Document) return String is
    begin
