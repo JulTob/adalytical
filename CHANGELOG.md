@@ -22,6 +22,9 @@ versionado [SemVer](https://semver.org/lang/es/).
 - **Scatter y stem plots + ejes con ticks**: `Series_Line` ahora ofrece
   `Series_Kind` (línea/stem/scatter) y dibuja ticks y etiquetas en ambos ejes;
   `Stem` y `Scatter` en la fachada.
+- **API de plots homogénea por dispatch**: el grafo ofrece `Graph_Chart` que
+  implementa `Plottable` (como `Series_Chart`/`Bar_Chart`); cualquier diagrama se
+  renderiza vía `Plottable'Class`. Epic de visualización completo.
 
 ## [0.1.0] — sin publicar
 
